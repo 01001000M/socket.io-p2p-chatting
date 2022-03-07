@@ -1,7 +1,6 @@
 
 # socket.io-p2p-chatting-app
-
-![](https://drive.google.com/file/d/1rPxhR5Cy48qcPyuNbScBObFyqP-cXy4-/view?usp=sharing)
+![screenshot](https://drive.google.com/uc?export=view&id=1rPxhR5Cy48qcPyuNbScBObFyqP-cXy4-)
 
 #### first of all (I'm not an ui guy), so in that project I focused on backend and security more than ui, don't blame me ;->
 
