@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <script src="jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="login_signup_style.css">
+</head>
+<body>
+
+<div class="main">
+    <form id="form">
+        <label for="user">username</label><input id="user" type="text" required><br>
+        <label for="pass">password</label><input id="pass" type="password" required><br>
+        <label for="repass">confirm password</label><input id="repass" type="password" required><br>
+        <button>SIGNUP</button>
+    </form>
+    <p id="textArea"></p>
+</div>
+    
+    <script>
+
+        const user = document.getElementById('user');
+        const pass = document.getElementById('pass');
+        const repass = document.getElementById('repass');
+
+        $(document).ready(function(){
+            $("#form").submit((e)=>{
+                e.preventDefault()
+
+                if(user.value &&pass.value &&repass.value && pass.value == repass.value ){
+                    $.post("/signup",{
+                        user:user.value,
+                        pass:pass.value
+
+                    },function(data){
+                        
+                        $("#textArea").html(data.message)
+                        user.value='';pass.value='';repass.value='';
+
+                        
+                    })
+                    
+                }else{
+                    $("#textArea").html("please make sure youre password == rePassword")
+                    user.value='';pass.value='';repass.value='';
+                    setTimeout(() => {
+                        $("#textArea").text("")
+                    }, 3000);
+                }
+                
+            })
+        })
+    </script>
+</body>
+</html>

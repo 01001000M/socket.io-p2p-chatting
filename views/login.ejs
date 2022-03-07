@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script src="jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="login_signup_style.css">
+</head>
+
+<body>
+<div class="main">
+    <form id="form">
+
+        <label for="user">username</label><input type="text" id="user">
+        <label for="pass">password</label><input type="password" id="pass">
+        <button>login</button>
+    </form>
+    <code id="textArea"></code>
+</div>
+
+
+    <script>
+        const user = document.getElementById("user");
+        const pass = document.getElementById("pass");
+
+        $(document).ready(function(){
+            $("#form").submit((e)=>{
+                e.preventDefault()
+
+                if(user.value && pass.value){
+                    $.post("/login",{
+                        user:user.value,
+                        pass:pass.value
+
+                    },function(data){
+                        console.log(data);
+                        if(data.newToken){
+                            document.cookie = `access_token=${data.newToken}`;
+                            user.value='';pass.value='';
+                            window.location.replace("/home")
+                        }else{
+                            $("#textArea").text("incorrect credintials ..");
+                            user.value='';pass.value='';
+                        }
+                    });
+
+                }else{
+                    $("#textArea").text("check your inputs ..");
+                    user.value='';pass.value='';
+                    setTimeout(() => {
+                        $("#textArea").text("");
+                    }, 3000);
+                }
+                
+            })
+        })
+    </script>
+</body>
+</html>

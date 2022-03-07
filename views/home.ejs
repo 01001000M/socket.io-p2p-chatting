@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HOME [<%- user %>]</title>
+        <script src="/jquery-3.6.0.js"></script>
+        <link rel="stylesheet" href="/home_style.css">
+    </head>
+    <body>
+        
+
+
+        <header id="main_header">
+            <p>welcome [<span id="username"><%- user %></span>]</p>
+        </header>
+        
+    <div id="root">
+        
+        <div id="leftDev">
+            <header id="connected_users">connected users :</header>
+            <!-- create the div inline boxes -->
+            <div id="users_list" class="div-inline-list">
+                
+                <!-- create the users container the user sees -->
+                
+            <% for (var i=0;i<users.length;i++){ %>
+
+                <% if (users[i] == user){ %>
+                    <% continue }%>
+
+                <div class="product-container">
+                    
+                    <input id="<%= users[i] %>" type="radio" name="myradio" required>
+                    <label for="<%= users[i] %>" class="clickable">
+                        <span class="checked-box">&#10004;</span>
+                        <p class="notifications" id="notification:<%= users[i] %>"></p>
+                        <p class="product"><%= users[i] %></p>
+                    </label>
+                    
+                </div>
+            <% } %>
+                
+            </div>
+        </div>
+
+        <!-- message box -->
+        <div id="msg-container">
+            <div id="msgBox" class="msgBox">
+            </div>
+
+            <form id="sending_form">
+                <textarea id="sending_message" type="text"></textarea>
+                <button>SEND</button>
+            </form>
+            
+            <code id="errArea"></code>
+        </div>
+    </div>
+        <!--client socket.io -->
+
+            <script src="/socket.io/socket.io.js"></script>
+
+        <!---emiting connect message [once]--->
+
+            <script>
+                const socket = io();
+                const username = $("#username").text();
+
+                socket.emit("conn",{userID:username})
+            </script>
+
+        
+
+        <script src="/client.js"></script>
+    </body>
+</html>
