@@ -101,7 +101,8 @@ $(document).ready(function(){
         
                     if($(this).attr('id') === currently_checked ){
                         $(this).prop("checked",false)
-                        currently_checked = ''
+                        currently_checked = '';
+			msgBox.textContent = '';
                         return
                     }
                     
